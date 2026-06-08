@@ -1,0 +1,58 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             |.text|, CODE, READONLY
+    2 00000000         
+    3 00000000         jump_to_app
+                               PROC
+    4 00000000                 EXPORT           jump_to_app
+    5 00000000         
+    6 00000000 B672            CPSID            I           ; 1. ÂÖ≥ÂÖ®Â±Ä‰∏≠Êñ
+                                                            ≠
+    7 00000002         
+    8 00000002 6801            LDR              R1, [R0, #0] ; 2. R1 = App ÂêëÈ
+                                                            áèË°®[0] = App Ê†àÈ
+                                                            °∂
+    9 00000004 F381 8808       MSR              MSP, R1     ; 3. ËÆæ MSP = App 
+                                                            Ê†àÈ°∂
+   10 00000008         
+   11 00000008 6841            LDR              R1, [R0, #4] ; 4. R1 = App ÂêëÈ
+                                                            áèË°®[1] = App ÂÖ•Â
+                                                            è£
+   12 0000000A 4708            BX               R1          ; 5. Ë∑≥ËøáÂéªÔºåÊ∞
+                                                            ∏Ëøú‰∏çÂõûÊù•
+   13 0000000C         
+   14 0000000C                 ENDP
+   15 0000000C                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\objects\jump.d -o.\objects\jump.o -I.\RTE\_Target_1 -IE:\Keil5\A
+RM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include -IE:\Keil5\ARM\CMSIS\Include --
+predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 524" --predef
+ine="STM32F10X_MD SETA 1" --list=.\listings\jump.lst Bootloader\jump.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 1 in file Bootloader\jump.s
+   Uses
+      None
+Comment: .text unused
+jump_to_app 00000000
+
+Symbol: jump_to_app
+   Definitions
+      At line 3 in file Bootloader\jump.s
+   Uses
+      At line 4 in file Bootloader\jump.s
+Comment: jump_to_app used once
+2 symbols
+335 symbols in table

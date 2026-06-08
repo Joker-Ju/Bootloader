@@ -1,0 +1,369 @@
+Component: ARM Compiler 5.06 update 5 (build 528) Tool: armlink [4d35e2]
+
+==============================================================================
+
+Section Cross References
+
+    startup_stm32f10x_md.o(RESET) refers to startup_stm32f10x_md.o(STACK) for __initial_sp
+    startup_stm32f10x_md.o(RESET) refers to startup_stm32f10x_md.o(.text) for Reset_Handler
+    startup_stm32f10x_md.o(.text) refers to bootloader.o(i.SystemInit) for SystemInit
+    startup_stm32f10x_md.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    bootloader.o(i.is_app_valid) refers to bootloader.o(i.crc32_calc) for crc32_calc
+    bootloader.o(i.main) refers to bootloader.o(i.uart_init) for uart_init
+    bootloader.o(i.main) refers to bootloader.o(i.gpio_init) for gpio_init
+    bootloader.o(i.main) refers to bootloader.o(i.led_on) for led_on
+    bootloader.o(i.main) refers to bootloader.o(i.uart_print) for uart_print
+    bootloader.o(i.main) refers to bootloader.o(i.upgrade_to) for upgrade_to
+    bootloader.o(i.main) refers to flash.o(i.Flash_unlock) for Flash_unlock
+    bootloader.o(i.main) refers to flash.o(i.Flash_erase_page) for Flash_erase_page
+    bootloader.o(i.main) refers to flash.o(i.Flash_write_halfword) for Flash_write_halfword
+    bootloader.o(i.main) refers to flash.o(i.Flash_lock) for Flash_lock
+    bootloader.o(i.main) refers to bootloader.o(i.is_app_valid) for is_app_valid
+    bootloader.o(i.main) refers to jump.o(.text) for jump_to_app
+    bootloader.o(i.uart_print) refers to bootloader.o(i.uart_putchar) for uart_putchar
+    bootloader.o(i.upgrade_to) refers to flash.o(i.Flash_unlock) for Flash_unlock
+    bootloader.o(i.upgrade_to) refers to flash.o(i.Flash_erase_app_area) for Flash_erase_app_area
+    bootloader.o(i.upgrade_to) refers to xmodem.o(i.xmodem_receive) for xmodem_receive
+    bootloader.o(i.upgrade_to) refers to flash.o(i.Flash_erase_page) for Flash_erase_page
+    bootloader.o(i.upgrade_to) refers to flash.o(i.Flash_write_halfword) for Flash_write_halfword
+    bootloader.o(i.upgrade_to) refers to flash.o(i.Flash_lock) for Flash_lock
+    bootloader.o(i.upgrade_to) refers to bootloader.o(i.led_off) for led_off
+    bootloader.o(i.upgrade_to) refers to jump.o(.text) for jump_to_app
+    flash.o(i.Flash_erase_app_area) refers to flash.o(i.Flash_erase_page) for Flash_erase_page
+    flash.o(i.Flash_erase_app_area) refers to flash.o(i.Flash_lock) for Flash_lock
+    flash.o(i.Flash_write_data) refers to flash.o(i.Flash_write_halfword) for Flash_write_halfword
+    xmodem.o(i.xmodem_receive) refers to xmodem.o(i.uart_putchar) for uart_putchar
+    xmodem.o(i.xmodem_receive) refers to xmodem.o(i.uart_getchar) for uart_getchar
+    xmodem.o(i.xmodem_receive) refers to xmodem.o(i.xmodem_crc16) for xmodem_crc16
+    xmodem.o(i.xmodem_receive) refers to flash.o(i.Flash_write_data) for Flash_write_data
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to startup_stm32f10x_md.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to startup_stm32f10x_md.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to bootloader.o(i.main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to bootloader.o(i.main) for main
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing startup_stm32f10x_md.o(HEAP), (512 bytes).
+
+1 unused section(s) (total 512 bytes) removed from the image.
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    Bootloader\Bootloader.c                  0x00000000   Number         0  bootloader.o ABSOLUTE
+    Bootloader\Flash.c                       0x00000000   Number         0  flash.o ABSOLUTE
+    Bootloader\jump.s                        0x00000000   Number         0  jump.o ABSOLUTE
+    Bootloader\xmodem.c                      0x00000000   Number         0  xmodem.o ABSOLUTE
+    Start\startup_stm32f10x_md.s             0x00000000   Number         0  startup_stm32f10x_md.o ABSOLUTE
+    dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
+    handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
+    init.s                                   0x00000000   Number         0  init.o ABSOLUTE
+    RESET                                    0x08000000   Section      236  startup_stm32f10x_md.o(RESET)
+    .ARM.Collect$$$$00000000                 0x080000ec   Section        0  entry.o(.ARM.Collect$$$$00000000)
+    .ARM.Collect$$$$00000001                 0x080000ec   Section        4  entry2.o(.ARM.Collect$$$$00000001)
+    .ARM.Collect$$$$00000004                 0x080000f0   Section        4  entry5.o(.ARM.Collect$$$$00000004)
+    .ARM.Collect$$$$00000008                 0x080000f4   Section        0  entry7b.o(.ARM.Collect$$$$00000008)
+    .ARM.Collect$$$$0000000A                 0x080000f4   Section        0  entry8b.o(.ARM.Collect$$$$0000000A)
+    .ARM.Collect$$$$0000000B                 0x080000f4   Section        8  entry9a.o(.ARM.Collect$$$$0000000B)
+    .ARM.Collect$$$$0000000D                 0x080000fc   Section        0  entry10a.o(.ARM.Collect$$$$0000000D)
+    .ARM.Collect$$$$0000000F                 0x080000fc   Section        0  entry11a.o(.ARM.Collect$$$$0000000F)
+    .ARM.Collect$$$$00002712                 0x080000fc   Section        4  entry2.o(.ARM.Collect$$$$00002712)
+    __lit__00000000                          0x080000fc   Data           4  entry2.o(.ARM.Collect$$$$00002712)
+    .text                                    0x08000100   Section       36  startup_stm32f10x_md.o(.text)
+    .text                                    0x08000124   Section       12  jump.o(.text)
+    .text                                    0x08000130   Section       36  init.o(.text)
+    i.Flash_erase_app_area                   0x08000154   Section        0  flash.o(i.Flash_erase_app_area)
+    i.Flash_erase_page                       0x08000180   Section        0  flash.o(i.Flash_erase_page)
+    i.Flash_lock                             0x080001d8   Section        0  flash.o(i.Flash_lock)
+    i.Flash_unlock                           0x080001ec   Section        0  flash.o(i.Flash_unlock)
+    i.Flash_write_data                       0x08000204   Section        0  flash.o(i.Flash_write_data)
+    i.Flash_write_halfword                   0x08000244   Section        0  flash.o(i.Flash_write_halfword)
+    i.SystemInit                             0x08000294   Section        0  bootloader.o(i.SystemInit)
+    i.__scatterload_copy                     0x08000348   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x08000356   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x08000358   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.crc32_calc                             0x08000368   Section        0  bootloader.o(i.crc32_calc)
+    i.gpio_init                              0x080003a4   Section        0  bootloader.o(i.gpio_init)
+    i.is_app_valid                           0x080003fc   Section        0  bootloader.o(i.is_app_valid)
+    i.led_off                                0x08000430   Section        0  bootloader.o(i.led_off)
+    i.led_on                                 0x08000444   Section        0  bootloader.o(i.led_on)
+    i.main                                   0x08000458   Section        0  bootloader.o(i.main)
+    i.uart_getchar                           0x0800070c   Section        0  xmodem.o(i.uart_getchar)
+    uart_getchar                             0x0800070d   Thumb Code    58  xmodem.o(i.uart_getchar)
+    i.uart_init                              0x0800074c   Section        0  bootloader.o(i.uart_init)
+    i.uart_print                             0x080007b8   Section        0  bootloader.o(i.uart_print)
+    i.uart_putchar                           0x080007d0   Section        0  bootloader.o(i.uart_putchar)
+    i.uart_putchar                           0x080007ec   Section        0  xmodem.o(i.uart_putchar)
+    uart_putchar                             0x080007ed   Thumb Code    22  xmodem.o(i.uart_putchar)
+    i.upgrade_to                             0x08000808   Section        0  bootloader.o(i.upgrade_to)
+    i.xmodem_crc16                           0x080008a4   Section        0  xmodem.o(i.xmodem_crc16)
+    i.xmodem_receive                         0x080008e2   Section        0  xmodem.o(i.xmodem_receive)
+    STACK                                    0x20000000   Section     1024  startup_stm32f10x_md.o(STACK)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv4$P$D$K$B$S$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    __ARM_use_no_argv                        0x00000000   Number         0  bootloader.o ABSOLUTE
+    __cpp_initialize__aeabi_                  - Undefined Weak Reference
+    __cxa_finalize                            - Undefined Weak Reference
+    __decompress                              - Undefined Weak Reference
+    _clock_init                               - Undefined Weak Reference
+    _microlib_exit                            - Undefined Weak Reference
+    __Vectors_Size                           0x000000ec   Number         0  startup_stm32f10x_md.o ABSOLUTE
+    __Vectors                                0x08000000   Data           4  startup_stm32f10x_md.o(RESET)
+    __Vectors_End                            0x080000ec   Data           0  startup_stm32f10x_md.o(RESET)
+    __main                                   0x080000ed   Thumb Code     0  entry.o(.ARM.Collect$$$$00000000)
+    _main_stk                                0x080000ed   Thumb Code     0  entry2.o(.ARM.Collect$$$$00000001)
+    _main_scatterload                        0x080000f1   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    __main_after_scatterload                 0x080000f5   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    _main_clock                              0x080000f5   Thumb Code     0  entry7b.o(.ARM.Collect$$$$00000008)
+    _main_cpp_init                           0x080000f5   Thumb Code     0  entry8b.o(.ARM.Collect$$$$0000000A)
+    _main_init                               0x080000f5   Thumb Code     0  entry9a.o(.ARM.Collect$$$$0000000B)
+    __rt_final_cpp                           0x080000fd   Thumb Code     0  entry10a.o(.ARM.Collect$$$$0000000D)
+    __rt_final_exit                          0x080000fd   Thumb Code     0  entry11a.o(.ARM.Collect$$$$0000000F)
+    Reset_Handler                            0x08000101   Thumb Code     8  startup_stm32f10x_md.o(.text)
+    NMI_Handler                              0x08000109   Thumb Code     2  startup_stm32f10x_md.o(.text)
+    HardFault_Handler                        0x0800010b   Thumb Code     2  startup_stm32f10x_md.o(.text)
+    MemManage_Handler                        0x0800010d   Thumb Code     2  startup_stm32f10x_md.o(.text)
+    BusFault_Handler                         0x0800010f   Thumb Code     2  startup_stm32f10x_md.o(.text)
+    UsageFault_Handler                       0x08000111   Thumb Code     2  startup_stm32f10x_md.o(.text)
+    SVC_Handler                              0x08000113   Thumb Code     2  startup_stm32f10x_md.o(.text)
+    DebugMon_Handler                         0x08000115   Thumb Code     2  startup_stm32f10x_md.o(.text)
+    PendSV_Handler                           0x08000117   Thumb Code     2  startup_stm32f10x_md.o(.text)
+    SysTick_Handler                          0x08000119   Thumb Code     2  startup_stm32f10x_md.o(.text)
+    ADC1_2_IRQHandler                        0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    CAN1_RX1_IRQHandler                      0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    CAN1_SCE_IRQHandler                      0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    DMA1_Channel1_IRQHandler                 0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    DMA1_Channel2_IRQHandler                 0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    DMA1_Channel3_IRQHandler                 0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    DMA1_Channel4_IRQHandler                 0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    DMA1_Channel5_IRQHandler                 0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    DMA1_Channel6_IRQHandler                 0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    DMA1_Channel7_IRQHandler                 0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    EXTI0_IRQHandler                         0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    EXTI15_10_IRQHandler                     0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    EXTI1_IRQHandler                         0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    EXTI2_IRQHandler                         0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    EXTI3_IRQHandler                         0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    EXTI4_IRQHandler                         0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    EXTI9_5_IRQHandler                       0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    FLASH_IRQHandler                         0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    I2C1_ER_IRQHandler                       0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    I2C1_EV_IRQHandler                       0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    I2C2_ER_IRQHandler                       0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    I2C2_EV_IRQHandler                       0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    PVD_IRQHandler                           0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    RCC_IRQHandler                           0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    RTCAlarm_IRQHandler                      0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    RTC_IRQHandler                           0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    SPI1_IRQHandler                          0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    SPI2_IRQHandler                          0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    TAMPER_IRQHandler                        0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    TIM1_BRK_IRQHandler                      0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    TIM1_CC_IRQHandler                       0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    TIM1_TRG_COM_IRQHandler                  0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    TIM1_UP_IRQHandler                       0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    TIM2_IRQHandler                          0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    TIM3_IRQHandler                          0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    TIM4_IRQHandler                          0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    USART1_IRQHandler                        0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    USART2_IRQHandler                        0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    USART3_IRQHandler                        0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    USBWakeUp_IRQHandler                     0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    USB_HP_CAN1_TX_IRQHandler                0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    USB_LP_CAN1_RX0_IRQHandler               0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    WWDG_IRQHandler                          0x0800011b   Thumb Code     0  startup_stm32f10x_md.o(.text)
+    jump_to_app                              0x08000125   Thumb Code    12  jump.o(.text)
+    __scatterload                            0x08000131   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x08000131   Thumb Code     0  init.o(.text)
+    Flash_erase_app_area                     0x08000155   Thumb Code    44  flash.o(i.Flash_erase_app_area)
+    Flash_erase_page                         0x08000181   Thumb Code    82  flash.o(i.Flash_erase_page)
+    Flash_lock                               0x080001d9   Thumb Code    14  flash.o(i.Flash_lock)
+    Flash_unlock                             0x080001ed   Thumb Code    12  flash.o(i.Flash_unlock)
+    Flash_write_data                         0x08000205   Thumb Code    62  flash.o(i.Flash_write_data)
+    Flash_write_halfword                     0x08000245   Thumb Code    74  flash.o(i.Flash_write_halfword)
+    SystemInit                               0x08000295   Thumb Code   156  bootloader.o(i.SystemInit)
+    __scatterload_copy                       0x08000349   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x08000357   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x08000359   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    crc32_calc                               0x08000369   Thumb Code    54  bootloader.o(i.crc32_calc)
+    gpio_init                                0x080003a5   Thumb Code    74  bootloader.o(i.gpio_init)
+    is_app_valid                             0x080003fd   Thumb Code    50  bootloader.o(i.is_app_valid)
+    led_off                                  0x08000431   Thumb Code    14  bootloader.o(i.led_off)
+    led_on                                   0x08000445   Thumb Code    14  bootloader.o(i.led_on)
+    main                                     0x08000459   Thumb Code   412  bootloader.o(i.main)
+    uart_init                                0x0800074d   Thumb Code    94  bootloader.o(i.uart_init)
+    uart_print                               0x080007b9   Thumb Code    22  bootloader.o(i.uart_print)
+    uart_putchar                             0x080007d1   Thumb Code    22  bootloader.o(i.uart_putchar)
+    upgrade_to                               0x08000809   Thumb Code   134  bootloader.o(i.upgrade_to)
+    xmodem_crc16                             0x080008a5   Thumb Code    62  xmodem.o(i.xmodem_crc16)
+    xmodem_receive                           0x080008e3   Thumb Code   330  xmodem.o(i.xmodem_receive)
+    Region$$Table$$Base                      0x08000a2c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08000a3c   Number         0  anon$$obj.o(Region$$Table)
+    __initial_sp                             0x20000400   Data           0  startup_stm32f10x_md.o(STACK)
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x080000ed
+
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00000a3c, Max: 0x00002000, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00000a3c, Max: 0x00002000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x08000000   0x08000000   0x000000ec   Data   RO            3    RESET               startup_stm32f10x_md.o
+    0x080000ec   0x080000ec   0x00000000   Code   RO          177  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x080000ec   0x080000ec   0x00000004   Code   RO          180    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x080000f0   0x080000f0   0x00000004   Code   RO          183    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x080000f4   0x080000f4   0x00000000   Code   RO          185    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x080000f4   0x080000f4   0x00000000   Code   RO          187    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x080000f4   0x080000f4   0x00000008   Code   RO          188    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x080000fc   0x080000fc   0x00000000   Code   RO          190    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x080000fc   0x080000fc   0x00000000   Code   RO          192    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x080000fc   0x080000fc   0x00000004   Code   RO          181    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000100   0x08000100   0x00000024   Code   RO            4    .text               startup_stm32f10x_md.o
+    0x08000124   0x08000124   0x0000000c   Code   RO          145    .text               jump.o
+    0x08000130   0x08000130   0x00000024   Code   RO          194    .text               mc_w.l(init.o)
+    0x08000154   0x08000154   0x0000002c   Code   RO          103    i.Flash_erase_app_area  flash.o
+    0x08000180   0x08000180   0x00000058   Code   RO          104    i.Flash_erase_page  flash.o
+    0x080001d8   0x080001d8   0x00000014   Code   RO          105    i.Flash_lock        flash.o
+    0x080001ec   0x080001ec   0x00000018   Code   RO          106    i.Flash_unlock      flash.o
+    0x08000204   0x08000204   0x0000003e   Code   RO          107    i.Flash_write_data  flash.o
+    0x08000242   0x08000242   0x00000002   PAD
+    0x08000244   0x08000244   0x00000050   Code   RO          108    i.Flash_write_halfword  flash.o
+    0x08000294   0x08000294   0x000000b4   Code   RO           10    i.SystemInit        bootloader.o
+    0x08000348   0x08000348   0x0000000e   Code   RO          198    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x08000356   0x08000356   0x00000002   Code   RO          199    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08000358   0x08000358   0x0000000e   Code   RO          200    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x08000366   0x08000366   0x00000002   PAD
+    0x08000368   0x08000368   0x0000003c   Code   RO           11    i.crc32_calc        bootloader.o
+    0x080003a4   0x080003a4   0x00000058   Code   RO           12    i.gpio_init         bootloader.o
+    0x080003fc   0x080003fc   0x00000032   Code   RO           13    i.is_app_valid      bootloader.o
+    0x0800042e   0x0800042e   0x00000002   PAD
+    0x08000430   0x08000430   0x00000014   Code   RO           14    i.led_off           bootloader.o
+    0x08000444   0x08000444   0x00000014   Code   RO           15    i.led_on            bootloader.o
+    0x08000458   0x08000458   0x000002b4   Code   RO           16    i.main              bootloader.o
+    0x0800070c   0x0800070c   0x00000040   Code   RO          149    i.uart_getchar      xmodem.o
+    0x0800074c   0x0800074c   0x0000006c   Code   RO           17    i.uart_init         bootloader.o
+    0x080007b8   0x080007b8   0x00000016   Code   RO           18    i.uart_print        bootloader.o
+    0x080007ce   0x080007ce   0x00000002   PAD
+    0x080007d0   0x080007d0   0x0000001c   Code   RO           19    i.uart_putchar      bootloader.o
+    0x080007ec   0x080007ec   0x0000001c   Code   RO          150    i.uart_putchar      xmodem.o
+    0x08000808   0x08000808   0x0000009c   Code   RO           20    i.upgrade_to        bootloader.o
+    0x080008a4   0x080008a4   0x0000003e   Code   RO          151    i.xmodem_crc16      xmodem.o
+    0x080008e2   0x080008e2   0x0000014a   Code   RO          152    i.xmodem_receive    xmodem.o
+    0x08000a2c   0x08000a2c   0x00000010   Data   RO          196    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08000a3c, Size: 0x00000400, Max: 0x00005000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000        -       0x00000400   Zero   RW            1    STACK               startup_stm32f10x_md.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+      1424        378          0          0          0      10884   bootloader.o
+       318         30          0          0          0       3604   flash.o
+        12          0          0          0          0        308   jump.o
+        36          8        236          0       1024        792   startup_stm32f10x_md.o
+       484         12          0          0          0       3072   xmodem.o
+
+    ----------------------------------------------------------------------
+      2280        428        252          0       1024      18660   Object Totals
+         0          0         16          0          0          0   (incl. Generated)
+         6          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Member Name
+
+         0          0          0          0          0          0   entry.o
+         0          0          0          0          0          0   entry10a.o
+         0          0          0          0          0          0   entry11a.o
+         8          4          0          0          0          0   entry2.o
+         4          0          0          0          0          0   entry5.o
+         0          0          0          0          0          0   entry7b.o
+         0          0          0          0          0          0   entry8b.o
+         8          4          0          0          0          0   entry9a.o
+        30          0          0          0          0          0   handlers.o
+        36          8          0          0          0         68   init.o
+
+    ----------------------------------------------------------------------
+        88         16          0          0          0         68   Library Totals
+         2          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
+
+        86         16          0          0          0         68   mc_w.l
+
+    ----------------------------------------------------------------------
+        88         16          0          0          0         68   Library Totals
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+      2368        444        252          0       1024      17840   Grand Totals
+      2368        444        252          0       1024      17840   ELF Image Totals
+      2368        444        252          0          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                 2620 (   2.56kB)
+    Total RW  Size (RW Data + ZI Data)              1024 (   1.00kB)
+    Total ROM Size (Code + RO Data + RW Data)       2620 (   2.56kB)
+
+==============================================================================
+
