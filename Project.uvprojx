@@ -318,7 +318,7 @@
             <Strict>0</Strict>
             <EnumInt>0</EnumInt>
             <PlainCh>0</PlainCh>
-            <Ropi>0</Ropi>
+            <Ropi>1</Ropi>
             <Rwpi>0</Rwpi>
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
@@ -421,14 +421,39 @@
               <FilePath>.\Bootloader\jump.s</FilePath>
             </File>
             <File>
-              <FileName>xmodem.c</FileName>
+              <FileName>usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Bootloader\xmodem.c</FilePath>
+              <FilePath>.\Bootloader\usart.c</FilePath>
             </File>
             <File>
-              <FileName>xmodem.h</FileName>
+              <FileName>usart.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Bootloader\xmodem.h</FilePath>
+              <FilePath>.\Bootloader\usart.h</FilePath>
+            </File>
+            <File>
+              <FileName>W25Q64_Reader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bootloader\W25Q64_Reader.c</FilePath>
+            </File>
+            <File>
+              <FileName>W25Q64_Reader.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Bootloader\W25Q64_Reader.h</FilePath>
+            </File>
+            <File>
+              <FileName>SPI_Hard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Bootloader\SPI_Hard.c</FilePath>
+            </File>
+            <File>
+              <FileName>SPI_Hard.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Bootloader\SPI_Hard.h</FilePath>
+            </File>
+            <File>
+              <FileName>W25Q64_Ins.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Bootloader\W25Q64_Ins.h</FilePath>
             </File>
           </Files>
         </Group>

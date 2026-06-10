@@ -1,12 +1,13 @@
 #include "Flash.h"     // Flash 操作
-#include "xmodem.h"    // XMODEM 协议
+#include "usart.h"	 // USART 输出
+#include "W25Q64_Reader.h"
 
 
 // ── 地址定义 ──
 #define FLAG_ADDR       0x0800E000
 #define BOOT_TO_A       0xAAAAAAAA
 #define BOOT_TO_B       0xBBBBBBBB
-#define UPGRADE_REQ     0x55AA55AA
+
 
 #define APP_A_ADDR      0x08002000
 #define APP_B_ADDR      0x08008000
@@ -57,7 +58,6 @@ uint32_t crc32_calc(const uint8_t *data, uint32_t len) {
 	return crc ^ 0xFFFFFFFF;
 }
 
-
 // ── App 有效性检查 ──
 uint32_t is_app_valid(uint32_t app_addr) {
 	uint32_t code_len  = 24 * 1024 - 8;
@@ -73,76 +73,94 @@ uint32_t is_app_valid(uint32_t app_addr) {
 	return (computed == stored_crc) ? 1 : 0;
 }
 
-// ── GPIO 初始化（PC13=LED，PA0=升级触发） ──
+// ── GPIO 初始化（PC13=LED） ──
 void gpio_init(void) {
 	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPCEN;
 
 	// PC13: 推挽输出（LED）
-	GPIOC->CRH &= ~(0xF << 20);           // 清除 CNF13、MODE13
-	GPIOC->CRH |= (0x3 << 20);            // MODE13=11, CNF13=00 → 推挽输出 50MHz
-
-	// PA0: 上拉输入（检测低电平触发升级）
-	GPIOA->CRL &= ~(0xF << 0);            // 清除 CNF0、MODE0
-	GPIOA->CRL |= (0x8 << 0);             // CNF0=10, MODE0=00 → 上拉/下拉输入
-	GPIOA->ODR |= (1 << 0);               // PA0 上拉，默认高电平
+	GPIOC->CRH &= ~(GPIO_CRH_CNF13 | GPIO_CRH_MODE13);           // 清除 CNF13、MODE13
+	GPIOC->CRH |= GPIO_CRH_MODE13;            // MODE13=11, CNF13=00 → 推挽输出 50MHz
 }
 
 void led_on(void)  { GPIOC->ODR &= ~(1 << 13); }  // PC13=0 → LED 亮
 void led_off(void) { GPIOC->ODR |= (1 << 13); }   // PC13=1 → LED 灭
 
-void uart_init(void) {
-	RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_USART1EN;
 
-	GPIOA->CRH |= GPIO_CRH_CNF9_1;     // PA9 复用推挽
-	GPIOA->CRH &= ~GPIO_CRH_CNF9_0;
-	GPIOA->CRH |= GPIO_CRH_MODE9;
+ // ── OTA 升级（从 W25Q64 写到内部 Flash） ──
+ static void ota_update(void) {
+	W25Q64_Init();
+ 	uart_print("OTA: Reading W25Q64...\r\n");
 
-	GPIOA->CRH &= ~GPIO_CRH_CNF10_1;   // PA10 浮空输入
-	GPIOA->CRH |= GPIO_CRH_CNF10_0;
-	GPIOA->CRH &= ~GPIO_CRH_MODE10;
+ 	// 1. 读固件大小（App 下载完成后写到了 0x00FFFC）
+ 	uint32_t fw_size;
+ 	W25Q64_Read(0x00FFFC, (uint8_t*)&fw_size, 4);
 
-	USART1->BRR = 72000000 / 115200;
-	USART1->CR1 = USART_CR1_UE | USART_CR1_TE | USART_CR1_RE;
-}
-void uart_putchar(uint8_t c) {
-	while (!(USART1->SR & USART_SR_TXE));
-	USART1->DR = c;
-}
+ 	if (fw_size == 0 || fw_size > 48 * 1024) {
+ 		uart_print("OTA: Invalid size!\r\n");
+ 		return;
+ 	}
 
+ 	// 2. 判断目标分区
+ 	uint32_t flag = *(volatile uint32_t *)FLAG_ADDR;
+ 	uint32_t target = (flag == BOOT_TO_A) ? APP_B_ADDR : APP_A_ADDR;
 
-void uart_print(const char *s) {
-	while (*s) uart_putchar(*s++);
-}
+ 	uart_print(target == APP_B_ADDR ? "OTA: A -> B\r\n" : "OTA: B -> A\r\n");
 
+ 	// 3. 擦除目标分区
+ 	Flash_unlock();
+ 	Flash_erase_app_area(target, fw_size);
 
-// ── 升级模式 ──
-void upgrade_to(uint32_t target_addr)
-{
-
-	// 1. 擦除 App 分区
-	Flash_unlock();
-	Flash_erase_app_area(target_addr, 24 * 1024);
-	uint32_t ret = xmodem_receive(target_addr, 0);
-
-	if (ret == 0) {  // 传输成功！
-		// 写标记
-		Flash_erase_page(FLAG_ADDR);
-		uint32_t new_flag = (target_addr == APP_B_ADDR) ? BOOT_TO_B : BOOT_TO_A;
-		Flash_write_halfword(FLAG_ADDR,    new_flag & 0xFFFF);
-		Flash_write_halfword(FLAG_ADDR+2, (new_flag >> 16) & 0xFFFF);
+ 	// 4. 逐页复制 W25Q64 → 内部 Flash
+ 	uint8_t page[256];
+ 	uint32_t w25_addr = 0;
+ 	while (w25_addr < fw_size) {
+ 		uint32_t chunk = (fw_size - w25_addr >= 256) ? 256 : (fw_size - w25_addr);
+ 		W25Q64_Read(w25_addr, page, chunk);
+ 		Flash_write_data(target + w25_addr, page, chunk);
+ 		w25_addr += 256;
+ 	}
+	// ═══  加 CRC 校验  ═══
+	if (!is_app_valid(target)) {
+		uart_print("OTA: CRC FAILED!\r\n");
 		Flash_lock();
-		led_off();
-		// ── 设 BKP 未确认标记（App 启动成功后会改成 0x0000） ──
-		RCC->APB1ENR |= RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN;
-		PWR->CR |= PWR_CR_DBP;
-		BKP->DR4 = 0xFFFF;        // 未确认
-		jump_to_app(target_addr);
-	} else {
-		// 传输失败，重新锁回去，等下次复位再试
-		Flash_lock();
-		// LED 继续亮着，人看到就知道坏了
+		return;                     // 不翻转标志，不跳转，下次还进原来分区
 	}
+	
+ 	// 5. 翻转分区标志
+ 	Flash_erase_page(FLAG_ADDR);
+ 	uint32_t new_flag = (target == APP_B_ADDR) ? BOOT_TO_B : BOOT_TO_A;
+ 	Flash_write_halfword(FLAG_ADDR,    new_flag & 0xFFFF);
+ 	Flash_write_halfword(FLAG_ADDR+2, (new_flag >> 16) & 0xFFFF);
+ 	Flash_lock();
+
+ 	// 6. BKP 未确认 + 跳转
+ 	PWR->CR |= PWR_CR_DBP;
+ 	BKP->DR4 = 0xFFFF;
+ 	jump_to_app(target);
+ }
+
+
+// ── 回滚检查 ──
+// 当前分区 App 未确认（BKP->DR4 != 0x0000）时，切到另一分区
+static void check_rollback(uint32_t other_addr, uint32_t other_flag) {
+	if (BKP->DR4 == 0x0000) return;         // 已确认，不用回滚
+
+	uart_print(" unconfirmed! Rollback\r\n");
+
+	Flash_unlock();
+	Flash_erase_page(FLAG_ADDR);
+	Flash_write_halfword(FLAG_ADDR,    other_flag & 0xFFFF);
+	Flash_write_halfword(FLAG_ADDR+2, (other_flag >> 16) & 0xFFFF);
+	Flash_lock();
+	BKP->DR4 = 0;
+
+	if (is_app_valid(other_addr)) {
+		uart_print("Back to other\r\n");
+		jump_to_app(other_addr);
+	}
+	// 另一个区也无效 → 继续往下走，试当前区
 }
+
 
 
 // ── main ──
@@ -156,66 +174,27 @@ int main(void) {
 	// 先检查 BKP（App 请求的升级）
 	RCC->APB1ENR |= RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN;
 	PWR->CR |= PWR_CR_DBP;       // ← 加这行：开启后备域写权限
-	// 读 BKP 不需要 DBP，只要时钟使能就能读
 	if (BKP->DR1 == 0x5555) {
-		uint32_t target = ((uint32_t)BKP->DR2 << 16) | BKP->DR3;
-		const char *from = (target == APP_B_ADDR) ? "A" : "B";  // 目标不是 B → 当前就是 B
-		const char *to   = (target == APP_B_ADDR) ? "B" : "A";
-		uart_print("Current: ");
-		uart_print(from);
-		uart_print(", Upgrade to: ");
-		uart_print(to);
-		uart_print("\r\n");
-		BKP->DR1 = 0;  // 清标记
-		upgrade_to(target);  // 写到目标分区
-		// upgrade_to 里会写 Flash 标志 + 跳转，不会返回到这里
-	}
+      uart_print("OTA request\r\n");
+      BKP->DR1 = 0;               // 清标记
+      ota_update();               // 读 W25Q64 → 写 Flash → 跳转
+      // ota_update 里会跳转，不会回到这
+  	}
 	
-	
-	// 读标志区
 	flag = *(volatile uint32_t *)FLAG_ADDR;
-
-	if (flag == UPGRADE_REQ) {
-		uart_print("Flag: UPGRADE_REQ\r\n");
-		upgrade_to(APP_A_ADDR);  // 这里可以改进成读 FLAG_ADDR+4 的目标地址
-	  // 不会再回到这里
-	}
-
+	// 读标志区
 	if (flag == BOOT_TO_A) {
 		// 回滚检查：如果 DR4 != 0x0000，说明新固件没确认过
-		if (BKP->DR4 != 0x0000) {
-			uart_print("A unconfirmed! Rollback to B\r\n");
-			Flash_unlock();
-			Flash_erase_page(FLAG_ADDR);
-			Flash_write_halfword(FLAG_ADDR,    BOOT_TO_B & 0xFFFF);
-			Flash_write_halfword(FLAG_ADDR+2, (BOOT_TO_B >> 16) & 0xFFFF);
-			Flash_lock();
-			BKP->DR4 = 0;
-			// 切到 B
-			if (is_app_valid(APP_B_ADDR)) {
-				uart_print("Back to B\r\n");
-				jump_to_app(APP_B_ADDR);
-			}
-		}
+		uart_print("A");
+		check_rollback(APP_B_ADDR, BOOT_TO_B);
 		uart_print("Boot to A\r\n");
 		if (is_app_valid(APP_A_ADDR)) {
 			jump_to_app(APP_A_ADDR);
 		}
 	} 
 	else if (flag == BOOT_TO_B) {
-		if (BKP->DR4 != 0x0000) {
-			uart_print("B unconfirmed! Rollback to A\r\n");
-			Flash_unlock();
-			Flash_erase_page(FLAG_ADDR);
-			Flash_write_halfword(FLAG_ADDR,    BOOT_TO_A & 0xFFFF);
-			Flash_write_halfword(FLAG_ADDR+2, (BOOT_TO_A >> 16) & 0xFFFF);
-			Flash_lock();
-			BKP->DR4 = 0;
-			if (is_app_valid(APP_A_ADDR)) {
-				uart_print("Back to A\r\n");
-				jump_to_app(APP_A_ADDR);
-			}	
-		}
+		uart_print("B");
+		check_rollback(APP_A_ADDR, BOOT_TO_A);
 		uart_print("Boot to B\r\n");
 		if (is_app_valid(APP_B_ADDR)) {
 			jump_to_app(APP_B_ADDR);
@@ -228,11 +207,14 @@ int main(void) {
 		jump_to_app(APP_A_ADDR);
 	}
 
-	uart_print("No valid app, wait for XMODEM...\r\n");
-	upgrade_to(APP_A_ADDR);
+	// uart_print("No valid app, wait for XMODEM...\r\n");
+	// upgrade_to(APP_A_ADDR);
 	while (1) {
-		
-	  // 在这里初始化 USART，等固件…
+		led_on();
+			for (volatile uint32_t i = 0; i < 2000000; i++);
+		led_off();
+			for (volatile uint32_t i = 0; i < 2000000; i++);
+		// 在这里初始化 USART，等固件…
 	}
 }
 

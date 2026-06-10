@@ -3,7 +3,9 @@
 ".\objects\bootloader.o"
 ".\objects\flash.o"
 ".\objects\jump.o"
-".\objects\xmodem.o"
+".\objects\usart.o"
+".\objects\w25q64_reader.o"
+".\objects\spi_hard.o"
 --library_type=microlib --strict --scatter ".\Objects\Project.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
