@@ -26,6 +26,7 @@ void SPI_Hard_Init(void)
 	GPIOA->CRL &= ~(GPIO_CRL_CNF1 | GPIO_CRL_MODE1);
 	GPIOA->CRL |=  GPIO_CRL_MODE1;                // CNF1=00(通用), MODE1=11(50MHz)
 	GPIOA->BSRR = (1 << 1);                   // CS 默认高（空闲）
+	GPIOA->BSRR = (1 << 5);                   // SCK 默认高（CPOL=0 时空闲低，这里先拉高，SPI_Init 里会改为 CPOL=0）
 
 	// ── SPI1 配置 ──
 	// CR1 先清 0

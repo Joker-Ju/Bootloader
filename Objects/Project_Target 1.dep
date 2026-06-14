@@ -2,7 +2,7 @@ Dependencies for Project 'Project', Target 'Target 1': (DO NOT MODIFY !)
 F (.\Start\core_cm3.h)(0x4D523B58)()
 F (.\Start\startup_stm32f10x_md.s)(0x4D783CD2)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 524" --pd "STM32F10X_MD SETA 1"--list .\listings\startup_stm32f10x_md.lst --xref -o .\objects\startup_stm32f10x_md.o --depend .\objects\startup_stm32f10x_md.d)
 F (.\Start\stm32f10x.h)(0x4D783CB4)()
-F (.\Bootloader\Bootloader.c)(0x6A295BE1)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\bootloader.o --omf_browse .\objects\bootloader.crf --depend .\objects\bootloader.d)
+F (.\Bootloader\Bootloader.c)(0x6A2BE9DE)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O2 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\bootloader.o --omf_browse .\objects\bootloader.crf --depend .\objects\bootloader.d)
 I (Bootloader\Flash.h)(0x6A25366A)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -12,7 +12,7 @@ I (Bootloader\usart.h)(0x6A2951F3)
 I (Bootloader\W25Q64_Reader.h)(0x6A2951CD)
 I (Bootloader\W25Q64_Ins.h)(0x69D63B8A)
 I (Bootloader\SPI_Hard.h)(0x6A294DE1)
-F (.\Bootloader\Flash.c)(0x6A252979)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\flash.o --omf_browse .\objects\flash.crf --depend .\objects\flash.d)
+F (.\Bootloader\Flash.c)(0x6A252979)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O2 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\flash.o --omf_browse .\objects\flash.crf --depend .\objects\flash.d)
 I (Bootloader\Flash.h)(0x6A25366A)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -20,14 +20,14 @@ I (E:\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
 I (E:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\system_stm32f10x.h)(0x5825386C)
 F (.\Bootloader\Flash.h)(0x6A25366A)()
 F (.\Bootloader\jump.s)(0x6A2920AA)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 524" --pd "STM32F10X_MD SETA 1"--list .\listings\jump.lst --xref -o .\objects\jump.o --depend .\objects\jump.d)
-F (.\Bootloader\usart.c)(0x6A291FCC)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
+F (.\Bootloader\usart.c)(0x6A291FCC)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O2 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
 I (Bootloader\usart.h)(0x6A2951F3)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (E:\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
 I (E:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\system_stm32f10x.h)(0x5825386C)
 F (.\Bootloader\usart.h)(0x6A2951F3)()
-F (.\Bootloader\W25Q64_Reader.c)(0x6A2951E5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\w25q64_reader.o --omf_browse .\objects\w25q64_reader.crf --depend .\objects\w25q64_reader.d)
+F (.\Bootloader\W25Q64_Reader.c)(0x6A2D43AA)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O2 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\w25q64_reader.o --omf_browse .\objects\w25q64_reader.crf --depend .\objects\w25q64_reader.d)
 I (Bootloader\W25Q64_Reader.h)(0x6A2951CD)
 I (Bootloader\W25Q64_Ins.h)(0x69D63B8A)
 I (Bootloader\SPI_Hard.h)(0x6A294DE1)
@@ -36,7 +36,7 @@ I (.\Start\core_cm3.h)(0x4D523B58)
 I (E:\Keil5\ARM\ARMCC\include\stdint.h)(0x588B8344)
 I (E:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include\system_stm32f10x.h)(0x5825386C)
 F (.\Bootloader\W25Q64_Reader.h)(0x6A2951CD)()
-F (.\Bootloader\SPI_Hard.c)(0x6A295B70)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\spi_hard.o --omf_browse .\objects\spi_hard.crf --depend .\objects\spi_hard.d)
+F (.\Bootloader\SPI_Hard.c)(0x6A2D460E)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O2 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\spi_hard.o --omf_browse .\objects\spi_hard.crf --depend .\objects\spi_hard.d)
 I (Bootloader\SPI_Hard.h)(0x6A294DE1)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
