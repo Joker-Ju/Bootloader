@@ -15,6 +15,13 @@ void jump_to_app(uint32_t app_addr);
 
 #define HSE_VALUE ((uint32_t)8000000)
 
+void jump_to_app_safe(uint32_t app_addr){
+	SysTick->CTRL = 0;
+	SCB->ICSR = SCB_ICSR_PENDSTCLR;
+	jump_to_app(app_addr);
+}
+
+
 void SystemInit(void)
 {
 	// 复位 RCC
@@ -80,7 +87,7 @@ static void ota_update(void) {
 	uart_print("OTA: Reading W25Q64...\r\n");
 
 	// 1. 读固件大小
-	if (g_fw_size == 0 || g_fw_size > 48 * 1024) {
+	if (g_fw_size < 128 || g_fw_size > 48 * 1024) {
 		uart_print("OTA: Invalid size!\r\n");
 		return;
 	}
@@ -143,7 +150,9 @@ static void ota_update(void) {
 	// 6. BKP 未确认 + 跳转
 	PWR->CR |= PWR_CR_DBP;
 	BKP->DR4 = 0xFFFF;
-	jump_to_app(target);
+	SysTick->CTRL = 0;
+	SCB->ICSR = SCB_ICSR_PENDSTCLR;
+	jump_to_app_safe(target);
 }
 
 static uint32_t is_app_bootable(uint32_t app_addr) {
@@ -173,7 +182,7 @@ static void check_rollback(uint32_t other_addr, uint32_t other_flag) {
 		Flash_lock();
 		BKP->DR4 = 0;
 		uart_print(other_flag == BOOT_TO_B ? "Back to B\r\n" : "Back to A\r\n");
-		jump_to_app(other_addr);
+		jump_to_app_safe(other_addr);
 	}
 	// 另一个区也无效 → 继续往下走，试当前区
 }
@@ -204,11 +213,11 @@ int main(void) {
 	if (flag == BOOT_TO_A) {
 		// 回滚检查：如果 DR4 != 0x0000，说明新固件没确认过
 		check_rollback(APP_B_ADDR, BOOT_TO_B);
-		jump_to_app(APP_A_ADDR);
+		jump_to_app_safe(APP_A_ADDR);
 	} 
 	else if (flag == BOOT_TO_B) {
 		check_rollback(APP_A_ADDR, BOOT_TO_A);
-		jump_to_app(APP_B_ADDR);
+		jump_to_app_safe(APP_B_ADDR);
 	}
 	
 	uart_print("Fallback: try A\r\n");
@@ -221,7 +230,8 @@ int main(void) {
 		Flash_write_halfword(FLAG_ADDR,    BOOT_TO_A & 0xFFFF);
 		Flash_write_halfword(FLAG_ADDR+2, (BOOT_TO_A >> 16) & 0xFFFF);
 		Flash_lock();
-		jump_to_app(APP_A_ADDR);
+		uart_print("Boot to A");
+		jump_to_app_safe(APP_A_ADDR);
 	}
 
 	while (1) {
