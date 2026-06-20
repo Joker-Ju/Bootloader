@@ -102,22 +102,53 @@ static void ota_update(void) {
 	Flash_unlock();
 	Flash_erase_app_area(target, g_fw_size);
 
-	// 4. 逐页复制 W25Q64 → 内部 Flash
+	
+	
+	
+	// 4. 逐页处理：边读边算 CRC（原始数据），修正地址后写入 Flash
 	static uint8_t page[256];
 	uint32_t w25_addr = 0;
+	uint32_t computed = 0xFFFFFFFF;
+
 	while (w25_addr < g_fw_size) {
 		uint32_t chunk = (g_fw_size - w25_addr >= 256) ? 256 : (g_fw_size - w25_addr);
 		W25Q64_Read(w25_addr, page, chunk);
+
+		// ── ① 先算 CRC（用原始数据，还没修正） ──
+		for (uint32_t i = 0; i < chunk; i++) {
+			computed ^= page[i];
+			for (int j = 0; j < 8; j++) {
+				if (computed & 1)
+					computed = (computed >> 1) ^ 0xEDB88320;
+				else
+					computed >>= 1;
+			}
+		}
+
+		// ── ② 修正地址（只对 B 区做） ──
+		if (target != APP_START_ADDR) {
+			uint32_t delta = target - APP_START_ADDR;  // = 0x6000
+			uint32_t *pw = (uint32_t *)page;
+			uint32_t end_addr = APP_START_ADDR + g_fw_size;
+
+			for (uint32_t i = 0; i < chunk / 4; i++) {
+				if (pw[i] >= APP_START_ADDR && pw[i] < end_addr) {
+					pw[i] += delta;   // 0x08002451 → 0x08008451
+				}
+			}
+		}
+
+		// ── ③ 写入 Flash ──
 		Flash_write_data(target + w25_addr, page, chunk);
-		w25_addr += 256;
+		w25_addr += chunk;
 	}
+
+	computed ^= 0xFFFFFFFF;   // 完成 CRC
 
 	// 读 W25Q64 里的预期 CRC（在 g_fw_size 偏移处）
 	uint32_t expected_crc;
 	W25Q64_Read(g_fw_size, (uint8_t*)&expected_crc, 4);
 
-	// 直接算 CRC
-	uint32_t computed = crc32_calc((uint8_t*)target, g_fw_size);
 	if (computed != expected_crc) {
 		uart_print("OTA: CRC FAILED!\r\n");
 		uart_print("OTA: computed = 0x");
@@ -140,6 +171,9 @@ static void ota_update(void) {
 		return;
 	}
 	uart_print("OTA: CRC OK\r\n");
+
+
+
 	// 5. 翻转分区标志
 	Flash_erase_page(FLAG_ADDR);
 	uint32_t new_flag = (target == APP_B_ADDR) ? BOOT_TO_B : BOOT_TO_A;

@@ -2,7 +2,7 @@ Dependencies for Project 'Project', Target 'Target 1': (DO NOT MODIFY !)
 F (.\Start\core_cm3.h)(0x4D523B58)()
 F (.\Start\startup_stm32f10x_md.s)(0x4D783CD2)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 524" --pd "STM32F10X_MD SETA 1"--list .\listings\startup_stm32f10x_md.lst --xref -o .\objects\startup_stm32f10x_md.o --depend .\objects\startup_stm32f10x_md.d)
 F (.\Start\stm32f10x.h)(0x4D783CB4)()
-F (.\Bootloader\Bootloader.c)(0x6A3396CF)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O2 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\bootloader.o --omf_browse .\objects\bootloader.crf --depend .\objects\bootloader.d)
+F (.\Bootloader\Bootloader.c)(0x6A362DA4)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O2 --apcs=interwork --apcs=/ropi --split_sections -I .\Start -I .\Bootloader-I.\RTE\_Target_1-IE:\Keil5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\Keil5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD-o .\objects\bootloader.o --omf_browse .\objects\bootloader.crf --depend .\objects\bootloader.d)
 I (Bootloader\Flash.h)(0x6A25366A)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
